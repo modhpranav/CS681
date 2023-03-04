@@ -5,12 +5,12 @@ import java.util.*;
 public class Car {
     private int price;
     private int year;
-    private float mileage;
+    private int mileage;
     private ArrayList<Car> cars;
     private String name;
     private int dominationCount = 0;
 
-    public Car(String name,int year,int price,float mileage) {
+    public Car(String name,int year,int price,int mileage) {
 
         this.year=year;
         this.price=price;
@@ -24,7 +24,7 @@ public class Car {
     public int getPrice(){
         return price;
     };
-    public float getMileage(){
+    public int getMileage(){
 
         return mileage;
     };
@@ -77,6 +77,10 @@ public class Car {
     public void setDominationCount(int dominationCount) {
         this.dominationCount = dominationCount;
     }
+
+    public String getName(){
+        return this.name;
+    };
 
     public static void main(String[] args){}
 
