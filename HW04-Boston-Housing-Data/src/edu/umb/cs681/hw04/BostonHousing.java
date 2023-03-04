@@ -9,7 +9,7 @@ import java.util.stream.*;
 
 public class BostonHousing {
     public static void main(String[] args) {
-        String fileName = "/home/pranav/Desktop/CS681/HW04-Boston-Housing-Data/src/edu/umb/cs681/hw04/bos-housing.csv";
+        String fileName = "bos-housing.csv";
         List<String[]> data = parseCsvFile(fileName);
 
 //        Data Processing #1
