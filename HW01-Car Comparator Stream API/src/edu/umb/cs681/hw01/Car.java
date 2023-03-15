@@ -40,42 +40,20 @@ public class Car {
         return this.cars;
     };
 
-    public void dominationCount(List<Car> carList, Car car) {
-
-        int year = car.getYear();
-        int price = car.getPrice();
-        float mileage = car.getMileage();
-        int currdominationCount = 0;
-
-        for (int i = 0; i < carList.size(); i++) {
-            int current_year = carList.get(i).getYear();
-            int current_price = carList.get(i).getPrice();
-            float current_mileage = carList.get(i).getMileage();
-            if (car != carList.get(i) && current_price >= price && current_year >= year && current_mileage >= mileage) {
-                currdominationCount += 1;
-            }
-        }
-        car.setDominationCount(currdominationCount);
-        currdominationCount = 0;
-
-    }
 
     public int getDominationCount(){
-//        int domination_count = 0;
-//        for(Car c:this.cars){
-//            if(this.year==c.getYear() && this.price==c.getPrice() && this.mileage==c.getMileage()){
-//                continue;
-//            };
-//            if(this.price>=c.getPrice()&&this.year<=c.getYear()&&this.mileage>=c.getMileage()){
-//                domination_count ++;
-//            };
-//        }
         return dominationCount;
-
     }
 
-    public void setDominationCount(int dominationCount) {
-        this.dominationCount = dominationCount;
+    public void setDominationCount(ArrayList<Car> carList){
+        this.dominationCount = 0;
+        for (Car car : carList) {
+            if(car.getYear() >= this.getYear() && car.getMileage() <= this.getMileage() && car.getPrice() <= this.getPrice()) {
+                if(car.getYear() > this.getYear() || car.getMileage() < this.getMileage() || car.getPrice() < this.getPrice()) {
+                    dominationCount++;
+                }
+            }
+        }
     }
 
     public String getName(){

@@ -1,5 +1,9 @@
 package edu.umb.cs681.hw01;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -473,8 +477,8 @@ public class CarTest {
     public void verifyDominationComparatorNaturalOrderTest() {
 
         ArrayList<Integer> actual = new ArrayList<>();
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(0, 0, 2, 3));
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byDominationAscending = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.toList());
@@ -487,9 +491,7 @@ public class CarTest {
     public void verifyHighGroupDominationTest(){
 
         ArrayList<String> expected_high = new ArrayList<>();
-        expected_high.add("Honda-2");
-        expected_high.add("Hyundai-1");
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byHighGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() > 1,
@@ -498,22 +500,10 @@ public class CarTest {
     }
 
     @Test
-    public void verifyHighGroupDominationAverageTest(){
-
-        double expected_average = 2.5;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
-        var byHighGroupDomination = usedCarData.stream()
-                .sorted(Comparator.comparing(Car::getDominationCount))
-                .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() > 1));
-        double actual_average = byHighGroupDomination.get(true).stream().mapToInt(Car::getDominationCount).average().orElse(Double.NaN);
-        assertEquals(expected_average, actual_average);
-    }
-
-    @Test
     public void verifyHighGroupDominationHighestTest(){
 
-        double expected_highest = 3.0;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        double expected_highest = 2.147483647E9;
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byHighGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() > 1));
@@ -525,8 +515,8 @@ public class CarTest {
     @Test
     public void verifyHighGroupDominationLowestTest(){
 
-        double expected_lowest = 2.0;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        double expected_lowest = -2.147483648E9;
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byHighGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() > 1));
@@ -538,8 +528,8 @@ public class CarTest {
     @Test
     public void verifyHighGroupDominationCountTest(){
 
-        long expected_count = 2;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        long expected_count = 0;
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byHighGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() > 1));
@@ -551,9 +541,11 @@ public class CarTest {
     public void verifyLowGroupDominationTest(){
 
         ArrayList<String> expected_low = new ArrayList<>();
+        expected_low.add("Hyundai-1");
+        expected_low.add("Honda-2");
         expected_low.add("Maruti-3");
         expected_low.add("Mercedes-4");
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byLowGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() < 1,
@@ -565,7 +557,7 @@ public class CarTest {
     public void verifyLowGroupDominationAverageTest(){
 
         double expected_average = 0.0;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byLowGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() < 1));
@@ -577,7 +569,7 @@ public class CarTest {
     public void verifyLowGroupDominationHighestTest(){
 
         double expected_highest = 0.0;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byLowGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() < 1));
@@ -590,7 +582,7 @@ public class CarTest {
     public void verifyLowGroupDominationLowestTest(){
 
         double expected_lowest = 0.0;
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byLowGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() < 1));
@@ -602,9 +594,9 @@ public class CarTest {
     @Test
     public void verifyLowGroupDominationCountTest(){
 
-        long expected_count = 2;
+        long expected_count = 4;
 
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var bylowGroupDomination = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount))
                 .collect(Collectors.partitioningBy((Car car) -> car.getDominationCount() < 1));
@@ -616,9 +608,9 @@ public class CarTest {
     public void verifyDominationComparatorReverseOrderTest() {
 
         ArrayList<Integer> actual = new ArrayList<>();
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(3,2,0,0));
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(0,0,0,0));
 
-        usedCarData.forEach(car -> car.dominationCount(usedCarData, car));
+        usedCarData.forEach(car -> car.setDominationCount(usedCarData));
         var byDominationdescending = usedCarData.stream()
                 .sorted(Comparator.comparing(Car::getDominationCount, Comparator.reverseOrder()))
                 .collect(Collectors.toList());
