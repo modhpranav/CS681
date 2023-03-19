@@ -1,0 +1,10 @@
+Testcase: edu.umb.cs681.hw03.DJIAWkSummaryObservableTest
+Test: verifyDJIAWKSummaryTest() took 19 milli sec(s)
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 28 milli sec(s)
+------------- Standard Output ---------------
+Weekly Candle Stick Observer
+Open : 32999.19
+Close : 33003.57
+High : 33189.28
+Low : 32500.71
+------------- ---------------- ---------------

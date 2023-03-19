@@ -10,9 +10,9 @@ public class Main {
         cardata.add(new Car("Maruti-3", 2002, 10000, 98));
         cardata.add(new Car("Mercedes-4", 2004, 20000, 72));
 
-        Car.CarPriceResultHolder resultHolder = cardata.stream()
+        CarPriceResultHolder resultHolder = cardata.stream()
                 .map(car -> car.getPrice())
-                .reduce(new Car.CarPriceResultHolder(),
+                .reduce(new CarPriceResultHolder(),
                         (result, price) -> {
                             result.accumulate(price);
                             return result;

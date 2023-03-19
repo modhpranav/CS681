@@ -1,20 +1,20 @@
 <project name="Observer-Data-DJIA-junit5-ivy" basedir="."  default="clean" xmlns:ivy="antlib:org.apache.ivy.ant">
     <property name="src" location="src" />
     <property name="bin" location="bin" />
-<!--    <property name="test.src" location="test/src" />-->
-<!--    <property name="test.bin" location="test/bin" />-->
+    <property name="test.src" location="test/src" />
+    <property name="test.bin" location="test/bin" />
     <property name="ivy.lib" location="lib"/>
 
     <path id="classpath">
         <pathelement location="${bin}" />
-<!--        <pathelement location="${test.bin}" />-->
+        <pathelement location="${test.bin}" />
         <fileset dir="${ivy.lib}"/>
     </path>
 
     <target name="init">
         <mkdir dir="${bin}"/>
-<!--        <mkdir dir="${test.bin}"/>-->
-<!--        <mkdir dir="test/reports"/>-->
+        <mkdir dir="${test.bin}"/>
+        <mkdir dir="test/reports"/>
         <mkdir dir="${ivy.lib}"/>
         <echo/>
     </target>
@@ -29,32 +29,32 @@
             <include name="edu/umb/cs681/hw03/*.java"/>
             <!-- include name="edu/umb/cs681/junit5intro/Calculator.java"/-->
         </javac>
-<!--        <javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="no">-->
-<!--            <classpath refid="classpath"/>-->
-<!--            <include name="edu/umb/cs681/hw03/*.java"/>-->
+        <javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="edu/umb/cs681/hw03/*.java"/>
 <!--            &lt;!&ndash; include name="edu/umb/cs681/junit5intro/CalculatorTest.java"/&ndash;&gt;-->
-<!--        </javac>-->
+        </javac>
     </target>
 
-<!--    <target name="test" depends="compile">-->
-<!--        &lt;!&ndash;junitlauncher printSummary="yes">-->
-<!--            <classpath refid="classpath" />-->
-<!--            <test outputdir="test" name="edu.umb.cs681.junit5intro.CalculatorTest"/>-->
-<!--            <listener type="legacy-plain" sendSysOut="true"/>-->
-<!--        </junitlauncher&ndash;&gt;-->
+    <target name="test" depends="compile">
+        <!--junitlauncher printSummary="yes">
+            <classpath refid="classpath" />
+            <test outputdir="test" name="edu.umb.cs681.junit5intro.CalculatorTest"/>
+            <listener type="legacy-plain" sendSysOut="true"/>
+        </junitlauncher-->
 
-<!--        <junitlauncher haltOnFailure="true" printSummary="true">-->
-<!--            <classpath refid="classpath" />-->
-<!--            <testclasses outputdir="test">-->
-<!--                <fileset dir="${test.bin}">-->
-<!--                    <include name="edu/umb/cs681/hw03/*Test.class"/>-->
-<!--                </fileset>-->
-<!--                <listener type="legacy-plain" sendSysOut="true"/>-->
-<!--                &lt;!&ndash;listener type="legacy-brief" sendSysOut="true"/&ndash;&gt;-->
-<!--            </testclasses>-->
-<!--        </junitlauncher>-->
-<!--    </target>-->
-    <target name="run" depends="compile">
+        <junitlauncher haltOnFailure="true" printSummary="true">
+            <classpath refid="classpath" />
+            <testclasses outputdir="test">
+                <fileset dir="${test.bin}">
+                    <include name="edu/umb/cs681/hw03/*Test.class"/>
+                </fileset>
+                <listener type="legacy-plain" sendSysOut="true"/>
+                <!--listener type="legacy-brief" sendSysOut="true"/-->
+            </testclasses>
+        </junitlauncher>
+    </target>
+    <target name="run" depends="test">
         <java classname="edu.umb.cs681.hw03.DJIAWkSummaryObservable"
               classpathref="classpath"
               fork="true"/>
@@ -63,7 +63,7 @@
     <target name="clean" depends="run">
         <delete includeemptydirs="true">
             <fileset dir="${bin}/edu/umb/cs681/hw03" includes="**/*"/>
-<!--            <fileset dir="${test.bin}/edu/umb/cs681/hw03" includes="**/*"/>-->
+            <fileset dir="${test.bin}/edu/umb/cs681/hw03" includes="**/*"/>
         </delete>
     </target>
 

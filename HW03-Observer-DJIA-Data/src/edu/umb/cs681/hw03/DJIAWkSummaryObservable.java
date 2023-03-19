@@ -40,12 +40,10 @@ public class DJIAWkSummaryObservable extends Observable<WkSummary> {
                     .min()
                     .orElse(Double.NaN);
 
-            this.notifyObservers(new WkSummary(dSummary.getDate(), Open, Close, High, Low));
+            this.notifyObservers(new WkSummary(Open, High, Low, Close));
             this.dSummaryCollection.clear();
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("DJIA Week Quote Observable Summary");
-    }
+    public static void main(String[] args){}
 }

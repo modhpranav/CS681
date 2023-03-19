@@ -6,18 +6,12 @@ public class Summary {
     private double Close;
     private double High;
     private double Low;
-    private Date date;
 
-    public Summary(Date date, double Open, double Close, double High, double Low){
-        this.date = date;
+    public Summary(double Open, double High, double Low, double Close){
         this.Open = Open;
         this.Close = Close;
         this.High = High;
         this.Low = Low;
-    }
-
-    public Date getDate(){
-        return this.date;
     }
 
     public double getOpen(){

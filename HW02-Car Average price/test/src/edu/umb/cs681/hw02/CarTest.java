@@ -25,19 +25,18 @@ public class CarTest {
     @Test
     public void verifyAverageTest() {
         double expected_average = 11750.0;
-        Car.CarPriceResultHolder resultHolder = usedCarData.stream()
+        double resultHolder = usedCarData.stream()
                 .map(car -> car.getPrice())
-                .reduce(new Car.CarPriceResultHolder(),
+                .reduce(new CarPriceResultHolder(),
                         (result, price) -> {
-                            result.accumulate(price);
+                            result.setAverage((result.getNumCarExamined() * result.getAverage() + price)
+                                    / (result.getNumCarExamined() + 1));
+                            result.setNumCarExamined(result.getNumCarExamined() + 1);
                             return result;
                         },
-                        (result1, result2) -> {
-                            result1.combine(result2);
-                            return result1;
-                        });
-
-        double actual_average = resultHolder.getAverage();
-        assertEquals(expected_average, actual_average);
+                        (result1, result2) ->
+                            result1).getAverage();
+        ;
+        assertEquals(expected_average, resultHolder);
     }
 }
