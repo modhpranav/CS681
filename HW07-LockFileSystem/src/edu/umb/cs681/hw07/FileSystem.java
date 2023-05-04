@@ -3,21 +3,21 @@ package edu.umb.cs681.hw07;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class FileSystem {
-    private static FileSystem instance = null;
-    private static final ReentrantLock lock = new ReentrantLock();
+    private static FileSystem filesystem = null;
+    private static final ReentrantLock relock = new ReentrantLock();
 
     private FileSystem() {
     }
 
     public static FileSystem getFileSystem() {
-        lock.lock();
+        relock.lock();
         try {
-            if (instance == null) {
-                instance = new FileSystem();
+            if (filesystem == null) {
+                filesystem = new FileSystem();
             }
-            return instance;
+            return filesystem;
         } finally {
-            lock.unlock();
+            relock.unlock();
         }
     }
 
