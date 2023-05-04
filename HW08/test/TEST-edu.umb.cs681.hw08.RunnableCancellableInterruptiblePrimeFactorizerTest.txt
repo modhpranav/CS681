@@ -1,0 +1,6 @@
+Testcase: edu.umb.cs681.hw08.RunnableCancellableInterruptiblePrimeFactorizerTest
+Test: testGeneratePrimeFactors() took 1 sec(s)
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 1 sec(s)
+------------- Standard Output ---------------
+Thread #17 generated [2, 2, 3, 3]
+------------- ---------------- ---------------
