@@ -13,7 +13,7 @@ public class RequestHandler implements Runnable {
 
     private final AccessCounter accessCounter;
     private final Random random;
-    private volatile boolean running = true;
+    private AtomicBoolean r = new AtomicBoolean(true);
 
     public RequestHandler(AccessCounter accessCounter) {
         this.accessCounter = accessCounter;
@@ -22,26 +22,29 @@ public class RequestHandler implements Runnable {
 
     @Override
     public void run() {
-        while (running) {
+        while (true) {
+            if (!r.get()) {
+                System.out.println("Method Interruption");
+                break;
+            }
             Path file = FILES[random.nextInt(FILES.length)];
             accessCounter.increment(file);
             int count = accessCounter.getCount(file);
-            System.out.printf("File %s has been accessed %d times.%n", file, count);
+            System.out.printf("File %s is been accessed %d times.%n", file, count);
             try {
                 Thread.sleep(random.nextInt(5000) + 1000);
             } catch (InterruptedException e) {
-                running = false;
+                r.set(false);
             }
         }
     }
 
     public void stop() {
-        running = false;
+        r.set(false);
     }
 
     public static void main(String[] args) throws InterruptedException {
         AccessCounter accessCounter = AccessCounter.getInstance();
-        AtomicBoolean stopFlag = new AtomicBoolean(false);
         Thread[] threads = new Thread[15];
         RequestHandler[] handlers = new RequestHandler[15];
 
@@ -53,9 +56,9 @@ public class RequestHandler implements Runnable {
 
         Thread.sleep(10000);
 
-        stopFlag.set(true);
-        for (RequestHandler handler : handlers) {
-            handler.stop();
+        for (int i = 0; i < threads.length; i++) {
+            handlers[i].stop();
+            threads[i].interrupt();
         }
 
         for (Thread thread : threads) {

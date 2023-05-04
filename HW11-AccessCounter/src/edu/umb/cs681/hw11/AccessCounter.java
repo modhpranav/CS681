@@ -7,8 +7,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class AccessCounter {
 
+    private static final ReentrantLock singletonInstanceLock = new ReentrantLock();
     private static volatile AccessCounter instance;
-    private static final Object instanceLock = new Object();
+
     final Map<Path, Integer> accessCountMap;
     private final ReentrantLock accessCountLock;
 
@@ -18,14 +19,15 @@ public class AccessCounter {
     }
 
     public static AccessCounter getInstance() {
-        if (instance == null) {
-            synchronized (instanceLock) {
-                if (instance == null) {
-                    instance = new AccessCounter();
-                }
+        singletonInstanceLock.lock();
+        try {
+            if (instance == null) {
+                instance = new AccessCounter();
             }
+            return instance;
+        } finally {
+            singletonInstanceLock.unlock();
         }
-        return instance;
     }
 
     public void increment(Path path) {
@@ -54,4 +56,3 @@ public class AccessCounter {
         }
     }
 }
-
