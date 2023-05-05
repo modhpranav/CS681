@@ -1,0 +1,8 @@
+Testcase: edu.umb.cs681.hw16.PizzaOrderGeneratorTest
+Test: testRevisedPizzaOrderGenerator() took 17 milli sec(s)
+Test: testOriginalPizzaOrderGenerator() took 2 milli sec(s)
+Tests run: 2, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 32 milli sec(s)
+------------- Standard Output ---------------
+Toppings are: Bell Pepper Mushrooms Onions Pineapple 
+Toppings are: Bell Pepper Mushrooms Onions Pineapple 
+------------- ---------------- ---------------
