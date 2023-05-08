@@ -1,15 +1,12 @@
-package edu.umb.cs681.hw15;
+package edu.umb.cs681.hw19;
 
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class Observable<T> {
-    private LinkedList<Observer> observers;
-    private ReentrantLock lockObs = new ReentrantLock();
+    private ConcurrentLinkedQueue<Observer> observers;
 
     Observable() {
-        observers = new LinkedList<>();
+        observers = new ConcurrentLinkedQueue<>();
     }
     public void addObserver(Observer<T> o) {
         observers.add(o);
@@ -19,7 +16,7 @@ public abstract class Observable<T> {
         observers.clear();
 
     }
-    public LinkedList<Observer> getObservers(){
+    public ConcurrentLinkedQueue<Observer> getObservers(){
         return observers;
     }
 
@@ -32,8 +29,6 @@ public abstract class Observable<T> {
     }
 
     public void notifyObservers(T event) {
-        lockObs.lock();
         observers.forEach( (observer)->{observer.update(this, event);} );
-        lockObs.unlock();
     }
 }

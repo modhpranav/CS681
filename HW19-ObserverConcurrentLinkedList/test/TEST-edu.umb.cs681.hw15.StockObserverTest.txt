@@ -1,4 +1,4 @@
-Testcase: edu.umb.cs681.hw15.StockObserverTest
+Testcase: edu.umb.cs681.hw19.StockObserverTest
 Test: TestThreadSafeObserver() took 21 milli sec(s)
 Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 30 milli sec(s)
 ------------- Standard Output ---------------

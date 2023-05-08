@@ -1,0 +1,20 @@
+Testcase: edu.umb.cs681.hw19.StockObserverTest
+Test: TestThreadSafeObserver() took 21 milli sec(s)
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 31 milli sec(s)
+------------- Standard Output ---------------
+Total Observers are: 3
+New Stock Addition: ABC
+Observer1 -> StockEvent: ABC@300.0
+Observer2 -> StockEvent: ABC@300.0
+Observer3 -> StockEvent: ABC@300.0
+StockQuote 'ABC' updated
+Observer1 -> StockEvent: ABC@50.0
+Observer2 -> StockEvent: ABC@50.0
+Observer3 -> StockEvent: ABC@50.0
+Observer1 -> StockEvent: ABC@572.4200286113588
+Observer2 -> StockEvent: ABC@572.4200286113588
+Observer3 -> StockEvent: ABC@572.4200286113588
+Observer1 -> StockEvent: ABC@596.6749331823322
+Observer2 -> StockEvent: ABC@596.6749331823322
+Observer3 -> StockEvent: ABC@596.6749331823322
+------------- ---------------- ---------------
