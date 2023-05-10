@@ -1,3 +1,3 @@
 Testcase: edu.umb.cs681.hw07.FileSystemTest
-Test: testGetFileSystem() took 33 milli sec(s)
-Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 44 milli sec(s)
+Test: testGetFileSystem() took 27 milli sec(s)
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 35 milli sec(s)
