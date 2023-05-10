@@ -23,11 +23,6 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
                     System.out.println("Thread #" + Thread.currentThread().getId() + " stopped generating prime factors.");
                     return;
                 }
-                if (Thread.interrupted()) {
-                    System.out.println("Thread #" + Thread.currentThread().getId() + " was interrupted.");
-                    isInterrupted = true;
-                    return;
-                }
                 if (divisor > 2 && isEven(divisor)) {
                     divisor++;
                     continue;
@@ -44,17 +39,12 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
                 }
             } finally {
                 relock.unlock();
+            }try {
+                Thread.sleep(1000);
+            }catch(InterruptedException e) {
+                System.out.println(e.toString());
+                continue;
             }
-        }
-    }
-
-    @Override
-    public void setDone() {
-        relock.lock();
-        try {
-            done = true;
-        } finally {
-            relock.unlock();
         }
     }
 
@@ -62,8 +52,8 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
         return isInterrupted;
     }
 
-    public void interrupt() {
-        Thread.currentThread().interrupt();
+    public void interrupt(){
+        isInterrupted = false;
     }
 
     public List<Long> getFactors() {
@@ -73,6 +63,26 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
         } finally {
             relock.unlock();
         }
+    }
+
+    public static void main(String[] args) {
+        RunnableCancellableInterruptiblePrimeFactorizer gen = new RunnableCancellableInterruptiblePrimeFactorizer(36, 2, 6);
+        Thread thread = new Thread(gen);
+        thread.start();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        gen.setDone();
+        thread.interrupt();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        gen.getPrimeFactors().forEach( (Long prime)-> System.out.print(prime + ", ") );
+        System.out.println("\n" + gen.getFactors().size() + " prime numbers are found.");
     }
 }
 
