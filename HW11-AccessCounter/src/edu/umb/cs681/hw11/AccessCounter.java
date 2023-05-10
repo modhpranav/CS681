@@ -24,10 +24,14 @@ public class AccessCounter {
             if (instance == null) {
                 instance = new AccessCounter();
             }
-            return instance;
         } finally {
             singletonInstanceLock.unlock();
+        }try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println(e.toString());
         }
+        return instance;
     }
 
     public void increment(Path path) {

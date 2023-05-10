@@ -24,7 +24,6 @@ public class RequestHandler implements Runnable {
     public void run() {
         while (true) {
             if (!r.get()) {
-                System.out.println("Method Interruption");
                 break;
             }
             Path file = FILES[random.nextInt(FILES.length)];

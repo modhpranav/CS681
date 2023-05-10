@@ -29,6 +29,10 @@ public class AccessCounter {
                 }
             } finally {
                 singletonInstanceLock.unlock();
+            }try {
+                Thread.sleep(1000);
+            }catch(InterruptedException e) {
+                System.out.println(e.toString());
             }
         }
         return instance;
