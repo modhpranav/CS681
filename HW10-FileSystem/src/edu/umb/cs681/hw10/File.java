@@ -1,10 +1,8 @@
 package edu.umb.cs681.hw10;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class File extends FSElement {
-    private final ReentrantLock lock = new ReentrantLock();
 
     public File(Directory parent, String name, int size, LocalDateTime creationTime) {
         super(parent, name, size, creationTime);
@@ -13,23 +11,9 @@ public class File extends FSElement {
         }
     }
 
-    public boolean isDirectory() {
-        lock.lock();
-        try {
-            return false;
-        } finally {
-            lock.unlock();
-        }
-    }
+    public boolean isDirectory() {return false;}
 
-    public boolean isFile() {
-        lock.lock();
-        try {
-            return true;
-        } finally {
-            lock.unlock();
-        }
-    }
+    public boolean isFile() {return true;}
 
     public int getSize() {
         lock.lock();

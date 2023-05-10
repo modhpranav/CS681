@@ -2,7 +2,6 @@ package edu.umb.cs681.hw10;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -96,34 +95,17 @@ public abstract class FSElement {
     }
 
     private boolean isFile() {
-        lock.lock();
-        try {
-            if (this instanceof File)
-                return true;
-            else return false;
-        } finally {
-            lock.unlock();
-        }
+        if (this instanceof File)
+            return true;
+        else return false;
     }
 
-    public boolean isDirectory() {
-        lock.lock();
-        try {
-            return false;
-        } finally {
-            lock.unlock();
-        }
-    }
+    public boolean isDirectory() {return false;}
 
     public boolean isLink() {
-        lock.lock();
-        try {
-            if(this instanceof Link)
-                return true;
-            else return false;
-        } finally {
-            lock.unlock();
-        }
+        if(this instanceof Link)
+            return true;
+        else return false;
     }
 
     public LocalDateTime getCreationTime() {

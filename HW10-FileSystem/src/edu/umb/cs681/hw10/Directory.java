@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Directory extends FSElement {
     private final List<FSElement> children = new LinkedList<>();
@@ -12,7 +11,6 @@ public class Directory extends FSElement {
     private final List<File> files = new LinkedList<>();
 
     private final List<Link> links = new LinkedList<>();
-    private final ReentrantLock lock = new ReentrantLock();
 
     public Directory(Directory parent, String name, int size, LocalDateTime creationTime) {
         super(parent, name, size, creationTime);
