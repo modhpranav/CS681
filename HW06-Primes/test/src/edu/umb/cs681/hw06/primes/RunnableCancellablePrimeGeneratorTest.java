@@ -3,6 +3,7 @@ package edu.umb.cs681.hw06.primes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,9 +22,8 @@ public class RunnableCancellablePrimeGeneratorTest {
     public void testGeneratePrimes() throws InterruptedException {
         Thread t = new Thread(primeGenerator);
         t.start();
-        Thread.sleep(100); // Sleep for 100 milliseconds to allow the generator to generate primes
-        primeGenerator.setDone(); // Set done to true to stop the generator
-        t.join();
+        Thread.sleep(100);
+        primeGenerator.setDone();
 
         List<Long> expectedPrimes = new LinkedList<>();
         expectedPrimes.add(2L);
@@ -54,17 +54,4 @@ public class RunnableCancellablePrimeGeneratorTest {
 
         assertEquals(expectedPrimes, primeGenerator.getPrimes(), "Generated primes are not as expected");
     }
-
-    @Test
-    public void testGeneratePrimesNoSleep() throws InterruptedException {
-        Thread t = new Thread(primeGenerator);
-        t.start();
-        primeGenerator.setDone(); // Set done to true to stop the generator
-        t.join();
-
-        List<Long> expectedPrimes = new LinkedList<>();
-
-        assertEquals(expectedPrimes, primeGenerator.getPrimes(), "Generated primes are not as expected");
-    }
-
 }

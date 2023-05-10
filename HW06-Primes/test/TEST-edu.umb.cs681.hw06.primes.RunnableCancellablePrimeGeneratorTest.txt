@@ -1,7 +1,3 @@
 Testcase: edu.umb.cs681.hw06.primes.RunnableCancellablePrimeGeneratorTest
-Test: testGeneratePrimesNoSleep() took 2 milli sec(s)
 Test: testGeneratePrimes() took 103 milli sec(s)
-Tests run: 2, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 106 milli sec(s)
-------------- Standard Output ---------------
-Stopped generating prime numbers.
-------------- ---------------- ---------------
+Tests run: 1, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 105 milli sec(s)

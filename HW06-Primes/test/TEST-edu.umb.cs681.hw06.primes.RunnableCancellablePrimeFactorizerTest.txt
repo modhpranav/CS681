@@ -1,5 +1,5 @@
 Testcase: edu.umb.cs681.hw06.primes.RunnableCancellablePrimeFactorizerTest
-Test: testFactorizerPrimesNoSleep() took 30 milli sec(s)
+Test: testFactorizerPrimesNoSleep() took 17 milli sec(s)
 Test: testGeneratePrimeFactors() took 1 sec(s)
 Tests run: 2, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 1 sec(s)
 ------------- Standard Output ---------------

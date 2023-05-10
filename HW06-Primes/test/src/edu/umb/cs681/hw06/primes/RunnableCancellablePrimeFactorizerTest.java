@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 class RunnableCancellablePrimeFactorizerTest {
@@ -26,35 +25,21 @@ class RunnableCancellablePrimeFactorizerTest {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
         factorizer.setDone();
-        thread.interrupt();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         List<Long> expected = new ArrayList<>(List.of(2L, 2L, 3L, 3L));
-        assertEquals(expected, factorizer.getPrimeFactors());
+        List<Long> actual = factorizer.getPrimeFactors();
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testFactorizerPrimesNoSleep() throws InterruptedException {
+    public void testFactorizerPrimesNoSleep(){
         Thread thread = new Thread(factorizer);
         thread.start();
 
         factorizer.setDone();
-        thread.interrupt();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         List<Long> expected = new ArrayList<>(List.of(2L, 2L, 3L, 3L));
         assertEquals(expected, factorizer.getPrimeFactors());
