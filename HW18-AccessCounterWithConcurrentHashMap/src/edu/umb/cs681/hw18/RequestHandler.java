@@ -24,7 +24,6 @@ public class RequestHandler implements Runnable {
     public void run() {
         while (true) {
             if (!r.get()) {
-                System.out.println("Method Interruption");
                 break;
             }
             Path file = FILES[random.nextInt(FILES.length)];
@@ -59,10 +58,6 @@ public class RequestHandler implements Runnable {
         for (int i = 0; i < threads.length; i++) {
             handlers[i].stop();
             threads[i].interrupt();
-        }
-
-        for (Thread thread : threads) {
-            thread.join();
         }
 
         accessCounter.accessCountMap.forEach((path, value) -> {
