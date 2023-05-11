@@ -14,27 +14,27 @@ public class StockObserverMultiThreads {
         Random randomValue = new Random();
 
         stock.addObserver((Observable o, Object obj) -> {
-            String ticker = ((StockEvent) obj).getTicker();
-            double quote = ((StockEvent) obj).getQuote();
+            String ticker = ((StockEvent) obj).tickers();
+            double quote = ((StockEvent) obj).quote();
             System.out.println("Observer1 -> StockEvent: " + ticker + "@" + quote);
         });
 
         stock.addObserver((Observable o, Object obj) -> {
-            String ticker = ((StockEvent) obj).getTicker();
-            double quote = ((StockEvent) obj).getQuote();
+            String ticker = ((StockEvent) obj).tickers();
+            double quote = ((StockEvent) obj).quote();
             System.out.println("Observer2 -> StockEvent: " + ticker + "@" + quote);
         });
 
         stock.addObserver((Observable o, Object obj) -> {
-            String ticker = ((StockEvent) obj).getTicker();
-            double quote = ((StockEvent) obj).getQuote();
+            String ticker = ((StockEvent) obj).tickers();
+            double quote = ((StockEvent) obj).quote();
             System.out.println("Observer3 -> StockEvent: " + ticker + "@" + quote);
         });
 
         System.out.println("Total Observers are: " + stock.countObservers());
 
         System.out.println("New Stock Addition: " + code);
-        stock.setQuote(code, value);
+        stock.changeQuote(code, value);
 
         value = 50.0;
         System.out.println("StockQuote 'ABC' updated");
@@ -44,7 +44,7 @@ public class StockObserverMultiThreads {
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < numThreads; i++) {
             Thread t =
-                    new Thread(() ->{ stock.setQuote("ABC", randomValue.nextDouble()*100 + 500);
+                    new Thread(() ->{ stock.changeQuote("ABC", randomValue.nextDouble()*100 + 500);
                         stock.notifyObservers(new StockEvent("ABC", randomValue.nextDouble()*100 + 500));});
             threads.add(t);
         }
@@ -52,10 +52,6 @@ public class StockObserverMultiThreads {
         for (Thread t : threads) {
             t.start();
             t.interrupt();
-        }
-
-        for (Thread t : threads) {
-            t.join();
         }
 
     }
