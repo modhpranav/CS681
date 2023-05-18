@@ -43,7 +43,7 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
                 Thread.sleep(1000);
             }catch(InterruptedException e) {
                 System.out.println(e.toString());
-                continue;
+                return;
             }
         }
     }
@@ -76,11 +76,6 @@ public class RunnableCancellableInterruptiblePrimeFactorizer extends RunnableCan
         }
         gen.setDone();
         thread.interrupt();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         gen.getPrimeFactors().forEach( (Long prime)-> System.out.print(prime + ", ") );
         System.out.println("\n" + gen.getFactors().size() + " prime numbers are found.");
     }
