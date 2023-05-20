@@ -3,31 +3,57 @@ package edu.umb.cs681.hw17;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class RevisedCode {
-    public static ReentrantLock lock1 = new ReentrantLock();
-    public static ReentrantLock lock2 = new ReentrantLock();
+    private static ReentrantLock pepperoniLock = new ReentrantLock();
+    private static ReentrantLock cheeseLock = new ReentrantLock();
+
+    public static void addPepperoni() {
+        pepperoniLock.lock();
+        System.out.println("Lock acquired for adding pepperoni");
+
+        try {
+            Thread.sleep(1000);
+
+            cheeseLock.lock();
+            System.out.println("Lock acquired for adding cheese");
+
+            System.out.println("Pepperoni added to the pizza.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            cheeseLock.unlock();
+            System.out.println("Lock released for cheese");
+
+            pepperoniLock.unlock();
+            System.out.println("Lock released for pepperoni");
+        }
+    }
+
+    public static void addCheese() {
+        pepperoniLock.lock();
+        System.out.println("Lock acquired for adding pepperoni");
+
+        try {
+            Thread.sleep(1000);
+
+            cheeseLock.lock();
+            System.out.println("Lock acquired for adding cheese");
+
+            System.out.println("Cheese added to the pizza.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            cheeseLock.unlock();
+            System.out.println("Lock released for cheese");
+
+            pepperoniLock.unlock();
+            System.out.println("Lock released for pepperoni");
+        }
+    }
 
     public static void main(String[] args) {
-        Thread thread1 = new Thread(() -> {
-            lock1.lock();
-            System.out.println("thread1 uses lock1");
-            try { Thread.sleep(3000); } catch (InterruptedException e) {}
-            lock2.lock();
-            System.out.println("thread1 uses lock2");
-            lock2.unlock();
-            lock1.unlock();
-        });
+        Thread thread1 = new Thread(() -> addPepperoni());
+        Thread thread2 = new Thread(() -> addCheese());
 
-        Thread thread2 = new Thread(() -> {
-            lock1.lock();
-            System.out.println("thread2 uses lock1");
-            try { Thread.sleep(3000); } catch (InterruptedException e) {}
-            lock2.lock();
-            System.out.println("thread2 uses lock2");
-            lock2.unlock();
-            lock1.unlock();
-        });
-
-        System.out.println("Started Running RevisedCode.");
         thread1.start();
         thread2.start();
     }
