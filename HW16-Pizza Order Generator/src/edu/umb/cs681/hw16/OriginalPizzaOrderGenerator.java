@@ -14,7 +14,7 @@ public class OriginalPizzaOrderGenerator {
         for (int i = 0; i < numToppings; i++) {
             order += toppings[i] + " ";
         }
-        System.out.println("Toppings are: " + order);
+        System.out.println("Generated Order with Toppings are: " + order);
         return order;
     }
     public static void main(String[] args) {

@@ -29,7 +29,7 @@ public class RevisedPizzaOrderGenerator {
         } finally {
             lock.unlock();
         }
-        System.out.println("Toppings are: " + order);
+        System.out.println("Generated Pizza Order with Toppings: " + order);
         return order;
     }
 

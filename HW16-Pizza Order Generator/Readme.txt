@@ -11,6 +11,3 @@ To make sure that the program works correctly when multiple threads are using it
 
 -> How to Use
 To use this pizza order generator, you just need to create a PizzaOrderGenerator object and use its addTopping() method to add toppings. To generate an order with the chosen toppings, use the generateOrder() method. The revised code ensures that even if multiple people are using it at the same time, everything will work properly without any issues.
-
--> Conclusion
-When we use data structures and mechanisms that are designed to handle multiple threads accessing the same code, we can prevent issues like race conditions in our HW. This ensures that our program will work correctly even when multiple threads are running at the same time.
